@@ -22,9 +22,6 @@ public class ServiceN {
 
     private final   Repo repo;
 
-//    public ServiceN(Repo repo) {
-//        this.repo = repo;
-//    }
 
     public ABCD add(ABCD abcd){
         return repo.save(abcd);
@@ -36,19 +33,19 @@ public class ServiceN {
         List<ABCD> newEntities = list.stream()
                 .map(x -> {
                     ABCD copy = new ABCD();
-                    copy.setName(x.getName());                  // copy fields
-                    copy.setBalance(x.getBalance() + 123);     // modify balance
-                    return copy;                               // id is null -> new entity
+                    copy.setName(x.getName());
+                    copy.setBalance(x.getBalance() + 123);
+                    return copy;
                 })
                 .collect(Collectors.toList());
 
-        return repo.saveAll(newEntities);  // inserts new rows
+        return repo.saveAll(newEntities);
     }
 
 
     @Cacheable(value = "abcd", key = "#id")
     public ABCD getABCDById(int id) {
-        System.out.println("Fetching from DB..._______________________________________________________________"); // You'll see this only once
+        System.out.println("Fetching from DB..._______________________________________________________________");
         return repo.findById(id)
                 .orElseThrow(() -> new UserNotFoundException(id));
     }
