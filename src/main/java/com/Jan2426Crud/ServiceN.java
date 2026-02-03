@@ -1,6 +1,8 @@
 package com.Jan2426Crud;
 
 
+import com.Jan2426Crud.exception.UserNotFoundException;
+import org.springframework.boot.webmvc.autoconfigure.WebMvcProperties;
 import org.springframework.cache.annotation.Cacheable;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -48,7 +50,7 @@ public class ServiceN {
     public ABCD getABCDById(int id) {
         System.out.println("Fetching from DB..._______________________________________________________________"); // You'll see this only once
         return repo.findById(id)
-                .orElseThrow(() -> new RuntimeException("User not found"));
+                .orElseThrow(() -> new UserNotFoundException(id));
     }
 
 
